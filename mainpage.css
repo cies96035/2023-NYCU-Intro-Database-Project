@@ -4,10 +4,22 @@
         background-color: #44546A;
     }
     
+    .header-container {
+        overflow: auto;
+        margin-bottom: 2%;
+    }
+
     h1 {
         color: #FFFFFF;
     }
-    
+
+    .image {
+        float: left;
+        margin-right: 1%;
+        width: 5%;
+        height: auto;
+    }
+
     .button-container {
         display: flex;
         align-items: center;
@@ -16,6 +28,7 @@
         margin: 0;
         padding: 0;
     }
+    
     .button {
         padding: 40px 80px;
         background-color: #FFFFFF;
@@ -27,11 +40,8 @@
         margin: 20px;
         font-size: 40px;
     }
+    
     .button-black-border {
         border: 5px solid #000;
-    }
-    .image {
-        width: 150px;
-        height: auto;
     }
       
