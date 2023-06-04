@@ -70,3 +70,20 @@ function searchDataFunction(keyword) {
 
   return results;
 }
+
+// 在表格中的某個格子被點擊時觸發的處理函式
+function handleCellClick(event) {
+  // 取得被點擊的格子
+  var selectedCell = event.target;
+
+  // 添加/移除選取的樣式
+  selectedCell.classList.toggle('selected');
+}
+
+// 獲取所有的格子元素
+var cells = document.querySelectorAll('td');
+
+// 逐個綁定事件監聽器
+cells.forEach(function(cell) {
+  cell.addEventListener('click', handleCellClick);
+});
