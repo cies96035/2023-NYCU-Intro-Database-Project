@@ -6,7 +6,7 @@ var buttonAdd = document.getElementById('buttonAdd');
 var buttonNext = document.getElementById('buttonNext');
 var selectData = new Set();
 
-showTableWithDate(searchDataFunction());
+showTableWithDate(searchDataFunction(''));
 // research or go to next page -> update selectData
 function updateSelectSet(){
     var table = document.getElementById('searchResults');
