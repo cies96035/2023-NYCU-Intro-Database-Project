@@ -1,64 +1,82 @@
-/* CSS樣式 */
     body {
         font-family: Arial, sans-serif;
         background-color: #44546A;
     }
-  
+    
     .header-container {
-        overflow: auto;
-        margin-bottom: 2%;
+        display: flex;
+        /* overflow: auto; */
     }
-
     h1 {
         color: #FFFFFF;
     }
-
     .image {
-        float: left;
+        /* float: left; */
         margin-right: 1%;
         width: 5%;
         height: auto;
     }
   
-  .search-container {
-    display: block, flex;
-    width: 80%;
-    margin-left: 10%;
-  }
+    .search-container {
+        /* display: block, flex; */
+        display: block;
+        width: 80%;
+        margin-left: 10%;
+    }
+    #search-input {
+        width: 90%;
+        padding: 1% 2%;
+        font-size: 16px;
+        border-radius: 10px;
+    }
+    #search-button {
+        padding: 1% 2%;
+        background-color: #FFFFFF;
+        border-radius: 10px;
+        width: 1%;
+        /* height: 1%; */
+        float: right;
+        cursor: pointer;
+    }
+    
+    .table-container {
+        height: 400px;
+        overflow: auto;
+    }
+    .search-results {
+        margin-top: 20px;
+        text-align: center;
+        border-radius: 10px;
+        color: #FFFFFF;
+    }
+    table {
+        border-collapse: collapse;
+        margin: 0 auto;
+    }
+    table th, table td {
+        padding: 8px;
+        border: 1px solid #ccc;
+    }
 
-  #search-input {
-    width: 90%;
-    padding: 1% 2%;
-    font-size: 16px;
-    border-radius: 10px;
-  }
-  
-  #search-button {
-    padding: 1% 2%;
-    background-color: #FFFFFF;
-    border-radius: 10px;
-    width: 1%;
-    float: right;
-    cursor: pointer;
-  }
-  
-  .search-results {
-    margin-top: 20px;
-    text-align: center;
-    border-radius: 10px;
-    color: #FFFFFF;
-  }
-  
-  table {
-    border-collapse: collapse;
-    margin: 0 auto;
-  }
-  
-  table th, table td {
-    padding: 8px;
-    border: 1px solid #ccc;
-  }
-  .table-container {
-    height: 300px; /* 設定容器的高度 */
-    overflow: auto; /* 增加滾動功能 */
-  }
+    .button-container {
+        display: flex;
+        align-items: right;
+        justify-content: right;
+        margin-top: 20vh;
+        margin-left: 25vh;
+        width: 50vw;
+        height: 50vh;
+        /* margin: 0;
+        padding: 0; */
+    }
+    .button {
+        padding: 1vh 1vw;
+        background-color: #FFFFFF;
+        color: #000000;
+        border: none;
+        cursor: pointer;
+        border-radius: 40px;
+        text-align: center;
+        margin: 20px;
+        font-size: 25px;
+    }

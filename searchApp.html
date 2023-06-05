@@ -1,36 +1,32 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>簡單網頁範例</title>
-  <link rel="stylesheet" type="text/css" href="searchApp.css">
+	<title>搜尋應用</title>
+	<link rel="stylesheet" type="text/css" href="searchApp.css">
 </head>
 <body>
 
+	<div class="header-container">
+		<img src="app.png" class="image">
+		<h1>搜尋應用</h1>
+	</div>
 
-  <div class="header-container">
-    <img src="app.png" alt="圖片" class="image">
-    <h1>搜尋應用</h1>
-  </div>
+	<div class="search-container">
+		<input type="search" id="search-input" placeholder="搜尋應用">
+		<img src="search.png" id="search-button">
+	</div>
 
-  <div class="search-container">
-    <input type="text" id="search-input" placeholder="搜尋應用">
-    <img src="search.png" id="search-button">
-  </div>
+	<div class="table-container">
+		<div id="search-results" class="search-results">
+			<!-- get table from js -->
+		</div>
+	</div>
 
-  <div class="table-container">
-    <div id="search-results" class="search-results">
-      <!-- 搜尋結果將在這裡顯示 -->
-    </div>
-  </div>
+	<div class="button-container">
+		<button id="buttonAdd" class="button">找不到? 點此新增</button>
+		<button id="buttonNext" class="button">下一步</button>
+	</div>
 
-  <div class="button-container">
-    <button id="buttonAdd" class="button button-black-border">找不到? 點此新增</button>
-    <button id="buttonNext" class="button button-black-border">下一步</button>
-  </div>
-
-
-
-
-  <script src="searchApp.js"></script>
+	<script src="searchApp.js"></script>
 </body>
 </html>

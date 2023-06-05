@@ -7,17 +7,17 @@ var buttonAdd = document.getElementById('buttonAdd');
 var buttonNext = document.getElementById('buttonNext');
 
 searchButton.addEventListener('click', function() {
-  var searchKeyword = document.getElementById('search-input').value;
-  var searchData = searchDataFunction(searchKeyword);
+    var searchKeyword = document.getElementById('search-input').value;
+    var searchData = searchDataFunction(searchKeyword);
 
-  searchResults.innerHTML = '';
+    searchResults.innerHTML = '';
 
-  // create table ->
-  if (searchData.length > 0) {
-    var table = document.createElement('table');
-    var tableHeader = document.createElement('tr');
-    var headerKeys = Object.keys(searchData[0]);
-    headerKeys.unshift('select');
+    // create table ->
+    if (searchData.length > 0) {
+        var table = document.createElement('table');
+        var tableHeader = document.createElement('tr');
+        var headerKeys = Object.keys(searchData[0]);
+        headerKeys.unshift('select');
 
     // table header
     for (var i = 0; i < headerKeys.length; i++) {
@@ -29,31 +29,31 @@ searchButton.addEventListener('click', function() {
 
     // table rows
     for (var i = 0; i < searchData.length; i++) {
-      var tableRow = document.createElement('tr');
-      var rowData = Object.values(searchData[i]);
+        var tableRow = document.createElement('tr');
+        var rowData = Object.values(searchData[i]);
 
-      var checkbox = document.createElement('input');
-      checkbox.type = 'checkbox';
+        var checkbox = document.createElement('input');
+        checkbox.type = 'checkbox';
 
-      var checkboxCell = document.createElement('td');
-      checkboxCell.appendChild(checkbox);
-      tableRow.appendChild(checkboxCell);
+        var checkboxCell = document.createElement('td');
+        checkboxCell.appendChild(checkbox);
+        tableRow.appendChild(checkboxCell);
 
-      for (var j = 0; j < rowData.length; j++) {
-        var td = document.createElement('td');
-        td.textContent = rowData[j];
-        tableRow.appendChild(td);
-      }
+        for (var j = 0; j < rowData.length; j++) {
+            var td = document.createElement('td');
+            td.textContent = rowData[j];
+            tableRow.appendChild(td);
+        }
 
-      table.appendChild(tableRow);
+        table.appendChild(tableRow);
     }
 
-    searchResults.appendChild(table);
-  } else {
-    var noResults = document.createElement('p');
-    noResults.textContent = '找不到相應的資料。';
-    searchResults.appendChild(noResults);
-  }
+        searchResults.appendChild(table);
+    } else {
+        var noResults = document.createElement('p');
+        noResults.textContent = '找不到相應的資料。';
+        searchResults.appendChild(noResults);
+    }
 });
 
 

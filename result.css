@@ -4,8 +4,18 @@
         background-color: #44546A;
     }
     
+    .header-container {
+        display: flex;
+        /* overflow: auto; */
+    }
     h1 {
-        color: #333;
+        color: #FFFFFF;
+    }
+    .image {
+        /* float: left; */
+        margin-right: 1%;
+        width: 5%;
+        height: auto;
     }
     
     .button-container {
@@ -27,11 +37,3 @@
         margin: 20px;
         font-size: 40px;
     }
-    .button-black-border {
-        border: 5px solid #000;
-    }
-    .image {
-        width: 150px;
-        height: auto;
-    }
-      

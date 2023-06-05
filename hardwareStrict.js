@@ -22,7 +22,6 @@ searchButton.addEventListener('click', function() {
 });
 
 function searchDataFunction(keyword) {
-    // 在此可以使用你的資料搜尋邏輯，這裡只是一個示例
     var data = [
       '資料1',
       '資料2',
