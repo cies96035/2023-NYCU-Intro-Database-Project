@@ -43,5 +43,10 @@ function searchDataFunction(keyword) {
         }
     }
     
-        return results;
+    return results;
 }
+
+buttonNext.addEventListener('click', function() {
+    // TODO: store the data between pages
+    window.location.href = 'result.html';
+});
