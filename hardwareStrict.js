@@ -1,6 +1,11 @@
 var searchButton = document.getElementById('search-button');
 var searchResults = document.getElementById('search-results');
 
+
+var urlParams = new URLSearchParams(window.location.search);
+var selectData = urlParams.get('selectData');
+alert('接收到的資料為：' + selectData)
+
 searchButton.addEventListener('click', function() {
     var searchKeyword = document.getElementById('search-input').value;
 

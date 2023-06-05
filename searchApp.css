@@ -23,13 +23,13 @@
         width: 80%;
         margin-left: 10%;
     }
-    #search-input {
+    #searchInput {
         width: 90%;
         padding: 1% 2%;
         font-size: 16px;
         border-radius: 10px;
     }
-    #search-button {
+    #searchButton {
         padding: 1% 2%;
         background-color: #FFFFFF;
         border-radius: 10px;
@@ -43,7 +43,7 @@
         height: 400px;
         overflow: auto;
     }
-    .search-results {
+    #searchResults {
         margin-top: 20px;
         text-align: center;
         border-radius: 10px;
@@ -58,7 +58,7 @@
         border: 1px solid #ccc;
     }
 
-    .button-container {
+    /* .button-container {
         display: flex;
         align-items: right;
         justify-content: right;
@@ -79,4 +79,4 @@
         text-align: center;
         margin: 20px;
         font-size: 25px;
-    }
+    } */
