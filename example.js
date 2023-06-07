@@ -1,4 +1,3 @@
-const sqlite3 = require('sqlite3').verbose();
 
 // 建立資料庫連線
 const db = new sqlite3.Database(':memory:'); // 使用記憶體資料庫，也可以指定檔案路徑來使用實體檔案

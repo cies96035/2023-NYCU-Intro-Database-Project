@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>其他硬體限制</title>
+    <link rel="stylesheet" type="text/css" href="hardwareStrict.css">
+</head>
+<body>
+	<div class="header-container">
+		<img src="battery.png" class="image">
+		<h1>其他硬體限制</h1>
+	</div>
+
+  <h3>螢幕大小</h3>
+  <input type="radio" name="screenSize" value="0~100">不限
+  <input type="radio" name="screenSize" value="0~13">13 吋以下
+  <input type="radio" name="screenSize" value="13~14">13 吋
+  <input type="radio" name="screenSize" value="14~15">14 吋
+  <input type="radio" name="screenSize" value="15~16">15 吋
+  <input type="radio" name="screenSize" value="16~100">16 吋以上
+  <input type="radio" name="screenSize" value="other">自訂範圍
+  <div id="screenSizeCustom" style="display: none;">
+    <input type="text" id="screenSizeMinInput" placeholder="最小">
+    <input type="text" id="screenSizeMaxInput" placeholder="最大">
+  </div>
+  
+  <h3>價格</h3>
+  <input type="radio" name="price" value="0~100">不限
+  <input type="radio" name="price" value="0~1">1 萬以下
+  <input type="radio" name="price" value="1~2">2 萬以下
+  <input type="radio" name="price" value="2~3">3 萬以下
+  <input type="radio" name="price" value="3~100">3 萬以上
+  <input type="radio" name="price" value="other">自訂範圍
+  <div id="priceCustom" style="display: none;">
+    <input type="text" id="priceMinInput" placeholder="最小">
+    <input type="text" id="priceMaxInput" placeholder="最大">
+  </div>
+
+  <h3>重量</h3>
+  <input type="radio" name="weight" value="0~100">不限
+  <input type="radio" name="weight" value="0~1">1 kg以下
+  <input type="radio" name="weight" value="1~1.5">1.5 kg以下
+  <input type="radio" name="weight" value="1.5~2">2 kg以下
+  <input type="radio" name="weight" value="2~2.5">2.5 kg以下
+  <input type="radio" name="weight" value="2.5~3">3 kg以下
+  <input type="radio" name="weight" value="3~100">3 kg以上
+  <input type="radio" name="weight" value="other">自訂範圍
+  <div id="weightCustom" style="display: none;">
+    <input type="text" id="weightMinInput" placeholder="最小">
+    <input type="text" id="weightMaxInput" placeholder="最大">
+  </div>
+
+  <div class="button-container">
+    <button id="buttonNext" class="button button-black-border">Search my laptop</button>
+  </div>
+
+
+  <script src="hardwareStrict.js"></script>
+</body>
+</html>
