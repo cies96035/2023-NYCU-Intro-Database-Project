@@ -119,6 +119,8 @@ buttonNext.addEventListener('click', function() {
     updateSelectSet()
     var setString = JSON.stringify(Array.from(selectData));
     localStorage.setItem('selectSet', setString);
+    
+    window.location.href = '../html/hardwareStrict.html'
 });
 
 

@@ -42,7 +42,7 @@ function SaveAttribute() {
 
 buttonNext.addEventListener('click', function() {
     SaveAttribute();
-    window.location.href = 'result.html';
+    window.location.href = '../html/result.html';
 });
 
 for (var i = 0; i < attributeList.length; i++){
