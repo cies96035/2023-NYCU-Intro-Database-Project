@@ -1,14 +1,13 @@
 var searchResults = document.getElementById('searchResults');
 
-showTableWithDate
-function showTableWithDate(){
+showTableWithData();
+function showTableWithData() {
     Data = getLaptopData();
-    updateSelectSet();
     searchResults.innerHTML = ''; // clear result
-    
+    // console.log(Data);
     if (Data.length > 0) {
         var table = document.createElement('table');
-        
+
         // append table header
         var tableHeader = document.createElement('tr');
         var headerKeys = Object.keys(Data[0]);
@@ -20,22 +19,22 @@ function showTableWithDate(){
         }
 
         table.appendChild(tableHeader);
-    
+
         // append table rows
         for (var i = 0; i < Data.length; i++) {
             var tableRow = document.createElement('tr');
             var rowData = Object.values(Data[i]);
-    
+
             for (var j = 0; j < rowData.length; j++) {
                 var td = document.createElement('td');
                 td.textContent = rowData[j];
                 td.className = headerKeys[j + 1];
                 tableRow.appendChild(td);
             }
-    
+
             table.appendChild(tableRow);
         }
-    
+
         searchResults.appendChild(table);
     } else {
         // no use
@@ -45,16 +44,16 @@ function showTableWithDate(){
     }
 }
 
-function getLaptopData(){
+function getLaptopData() {
     var inf = 1e7;
     var storedDatasName = ["selectApp", "screenSize", "price", "weight"];
     var storedDatas = {};
-    for(var i = 0; i < storedDatasName.length; i++){
+    for (var i = 0; i < storedDatasName.length; i++) {
         storedDatas[storedDatasName[i]] = localStorage.getItem(storedDatasName[i]);
-        if(storedDatas[storedDatasName[i]] === null){
-            if(i == 0){
+        if (storedDatas[storedDatasName[i]] === null) {
+            if (i == 0) {
                 storedDatas[storedDatasName[i]] = [];
-            }else{
+            } else {
                 storedDatas[storedDatasName[i]] = [-1e7, 1e7];
             }
         }
@@ -63,11 +62,11 @@ function getLaptopData(){
 
     // TODO: get some data
     var data = [
-        {id: 1, name: "A", price: 1},
-        {id: 2, name: "A", price: 1},
-        {id: 3, name: "A", price: 1},
-        {id: 4, name: "A", price: 1},
-        {id: 5, name: "A", price: 1},
+        { id: 1, name: "A", price: 1 },
+        { id: 2, name: "A", price: 1 },
+        { id: 3, name: "A", price: 1 },
+        { id: 4, name: "A", price: 1 },
+        { id: 5, name: "A", price: 1 },
     ];
 
     return data

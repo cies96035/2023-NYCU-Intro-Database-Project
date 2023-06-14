@@ -18,10 +18,10 @@ function SaveAttribute() {
         var limit = []
         var attributeName = attributeList[i];
         var attrRadio = document.querySelector('input[name="' + attributeName + '"]:checked');
-        if (attrRadio === null){
+        if (attrRadio === null) {
             limit = [0, 100];
             continue;
-        } 
+        }
         if (attrRadio.value === 'other') {
             limit = [
                 parseInt(document.getElementById(attributeName + 'MinInput').value),
@@ -40,16 +40,16 @@ function SaveAttribute() {
 }
 
 
-buttonNext.addEventListener('click', function() {
+buttonNext.addEventListener('click', function () {
     SaveAttribute();
     window.location.href = '../html/result.html';
 });
 
-for (var i = 0; i < attributeList.length; i++){
+for (var i = 0; i < attributeList.length; i++) {
     var Radios = document.querySelectorAll('input[name="' + attributeList[i] + '"]');
     for (var j = 0; j < Radios.length; j++) {
-        Radios[j].addEventListener('change', (function(attribute) {
-            return function() {
+        Radios[j].addEventListener('change', (function (attribute) {
+            return function () {
                 handleChange(attribute);
             };
         })(attributeList[i]));

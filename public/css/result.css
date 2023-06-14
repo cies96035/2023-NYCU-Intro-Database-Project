@@ -1,23 +1,26 @@
-/* CSS樣式 */
-    body {
-        font-family: Arial, sans-serif;
-        background-color: #44546A;
+    .table-container {
+        height: 400px;
+        overflow: auto;
     }
-    
-    .header-container {
-        display: flex;
-        /* overflow: auto; */
-    }
-    h1 {
+
+    #searchResults {
+        margin-top: 20px;
+        text-align: center;
+        border-radius: 10px;
         color: #FFFFFF;
     }
-    .image {
-        /* float: left; */
-        margin-right: 1%;
-        width: 5%;
-        height: auto;
+
+    table {
+        border-collapse: collapse;
+        margin: 0 auto;
     }
-    
+
+    table th,
+    table td {
+        padding: 8px;
+        border: 1px solid #ccc;
+    }
+
     .button-container {
         display: flex;
         align-items: center;
@@ -26,6 +29,7 @@
         margin: 0;
         padding: 0;
     }
+
     .button {
         padding: 40px 80px;
         background-color: #FFFFFF;

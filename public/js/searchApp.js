@@ -9,9 +9,9 @@ var selectData = new Set();
 showTableWithDate(searchDataFunction(''));
 
 // research or go to next page -> update selectData
-function updateSelectSet(){
+function updateSelectSet() {
     var checkboxes = searchResults.querySelectorAll('input[type="checkbox"]');
-    
+
     for (var i = 0; i < checkboxes.length; i++) {
         var checkbox = checkboxes[i];
         var row = checkbox.parentNode.parentNode;
@@ -19,20 +19,20 @@ function updateSelectSet(){
         var selectIdx = row.querySelector('.gameId').textContent
         if (checkbox.checked) {
             selectData.add(parseInt(selectIdx))
-        }else{
+        } else {
             selectData.delete(parseInt(selectIdx))
         }
     }
 }
 
 
-function showTableWithDate(Data){
+function showTableWithDate(Data) {
     updateSelectSet();
     searchResults.innerHTML = ''; // clear result
-    
+
     if (Data.length > 0) {
         var table = document.createElement('table');
-        
+
         // append table header
         var tableHeader = document.createElement('tr');
         var headerKeys = Object.keys(Data[0]);
@@ -45,31 +45,31 @@ function showTableWithDate(Data){
         }
 
         table.appendChild(tableHeader);
-    
+
         // append table rows
         for (var i = 0; i < Data.length; i++) {
             var tableRow = document.createElement('tr');
             var rowData = Object.values(Data[i]);
             var checkbox = document.createElement('input');
             checkbox.type = 'checkbox';
-            if(selectData.has(rowData[0])){
+            if (selectData.has(rowData[0])) {
                 checkbox.checked = true;
             }
-    
+
             var checkboxCell = document.createElement('td');
             checkboxCell.appendChild(checkbox);
             tableRow.appendChild(checkboxCell);
-    
+
             for (var j = 0; j < rowData.length; j++) {
                 var td = document.createElement('td');
                 td.textContent = rowData[j];
                 td.className = headerKeys[j + 1];
                 tableRow.appendChild(td);
             }
-    
+
             table.appendChild(tableRow);
         }
-    
+
         searchResults.appendChild(table);
     } else {
         // no use
@@ -101,19 +101,19 @@ function searchDataFunction(keyword) {
     return results;
 }
 
-searchButton.addEventListener('click', function() {
+searchButton.addEventListener('click', function () {
     var searchKeyword = document.getElementById('searchInput').value;
     var searchData = searchDataFunction(searchKeyword);
-    
+
     showTableWithDate(searchData);
 });
 
 
 // TODO: add application
-buttonAdd.addEventListener('click', function() {
+buttonAdd.addEventListener('click', function () {
 });
 
-buttonNext.addEventListener('click', function() {
+buttonNext.addEventListener('click', function () {
     // console.log(selectData);
     // TODO: store the data between pages
     updateSelectSet()
@@ -121,7 +121,7 @@ buttonNext.addEventListener('click', function() {
     var setString = JSON.stringify(Array.from(selectData));
     // var setString = Array.from(selectData);
     localStorage.setItem('selectApp', setString);
-    
+
     window.location.href = '../html/hardwareStrict.html'
 });
 
