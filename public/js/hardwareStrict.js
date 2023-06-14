@@ -34,7 +34,7 @@ function SaveAttribute() {
                 parseInt(rangeValues[1])
             ];
         }
-        localStorage.setItem(attributeName, limit);
+        localStorage.setItem(attributeName, JSON.stringify(limit));
     }
     console.log(limit);
 }

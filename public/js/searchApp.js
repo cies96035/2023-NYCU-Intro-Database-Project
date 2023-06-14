@@ -114,11 +114,13 @@ buttonAdd.addEventListener('click', function() {
 });
 
 buttonNext.addEventListener('click', function() {
-    console.log(selectData);
+    // console.log(selectData);
     // TODO: store the data between pages
     updateSelectSet()
+    // console.log(Array.from(selectData))
     var setString = JSON.stringify(Array.from(selectData));
-    localStorage.setItem('selectSet', setString);
+    // var setString = Array.from(selectData);
+    localStorage.setItem('selectApp', setString);
     
     window.location.href = '../html/hardwareStrict.html'
 });

@@ -1,9 +1,9 @@
-var button1 = document.getElementById('button1');
-button1.addEventListener('click', function() {
+var searchAppButton = document.getElementById('searchAppButton');
+searchAppButton.addEventListener('click', function() {
     window.location.href = '../html/searchApp.html'
 });
 
-var button2 = document.getElementById('button2');
-button2.addEventListener('click', function() {
+var hardwareStrictButton = document.getElementById('hardwareStrictButton');
+hardwareStrictButton.addEventListener('click', function() {
     window.location.href = '../html/hardwareStrict.html'
 });
