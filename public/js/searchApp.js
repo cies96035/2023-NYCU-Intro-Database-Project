@@ -4,7 +4,7 @@ var searchButton = document.getElementById('searchButton');
 var searchResults = document.getElementById('searchResults');
 var buttonAdd = document.getElementById('buttonAdd');
 var buttonNext = document.getElementById('buttonNext');
-var selectData = new Set();
+var selectData = new Set(JSON.parse(localStorage.getItem("selectApp")));
 
 showTableWithDate(searchDataFunction(''));
 
@@ -111,18 +111,22 @@ searchButton.addEventListener('click', function () {
 
 // TODO: add application
 buttonAdd.addEventListener('click', function () {
+    updateSelectSet();
+    var setString = JSON.stringify(Array.from(selectData));
+    localStorage.setItem('selectApp', setString);
+    window.location.href = '../html/addApp.html';
 });
 
 buttonNext.addEventListener('click', function () {
     // console.log(selectData);
     // TODO: store the data between pages
-    updateSelectSet()
     // console.log(Array.from(selectData))
-    var setString = JSON.stringify(Array.from(selectData));
     // var setString = Array.from(selectData);
+    updateSelectSet();
+    var setString = JSON.stringify(Array.from(selectData));
     localStorage.setItem('selectApp', setString);
 
-    window.location.href = '../html/hardwareStrict.html'
+    window.location.href = '../html/hardwareStrict.html';
 });
 
 

@@ -4,7 +4,7 @@ var selectedCGpu = {};
 function updateSelectedCGPU(attrName) {
     var searchResults = document.getElementById(attrName + 'Results');
     var radios = searchResults.querySelectorAll('input[type="radio"]');
-    var flg = true;
+
     for (var i = 0; i < radios.length; i++) {
         var radio = radios[i];
         var row = radio.parentNode.parentNode;
@@ -12,11 +12,7 @@ function updateSelectedCGPU(attrName) {
         var selectIdx = row.querySelector('.Id').textContent
         if (radio.checked) {
             selectedCGpu[attrName] = parseInt(selectIdx);
-            flg = false;
         }
-    }
-    if(flg){
-        selectedCGpu[attrName] = 0;
     }
 }
 
@@ -30,20 +26,15 @@ function search(attrName){
     var keyword = document.getElementById(attrName).value;
     console.log('get data for c/gpu: ', attrName, keyword);
 
-
     // TODO: replace with sqlite
-    var data = []
-    if(keyword == ''){
-        data = [];
-    }else{
-        data = [
-            { Id: 1, cpu: 'a' },
-            { Id: 2, cpu: 'a' },
-            { Id: 3, cpu: 'a' },
-            { Id: 4, cpu: 'a' },
-            { Id: 5, cpu: 'a' }
-        ];
-    }
+    var data = [
+        { Id: 0, cpu: 'None' },
+        { Id: 1, cpu: 'a' },
+        { Id: 2, cpu: 'a' },
+        { Id: 3, cpu: 'a' },
+        { Id: 4, cpu: 'a' },
+        { Id: 5, cpu: 'a' }
+    ];
     return data;
 }
 
@@ -51,14 +42,6 @@ function showCGPU(attrName, Data){
     var searchResults = document.getElementById(attrName + 'Results');
     searchResults.innerHTML = '';
 
-    var radiobox = document.getElementById(attrName + 'Noneradio');
-    console.log(selectedCGpu[attrName], radiobox);
-    if(selectedCGpu[attrName] == 0) radiobox.checked = true;
-    // searchResults.appendChild(radiobox);
-
-    if(Data.length == 0){
-        return;
-    }
     var table = document.createElement('table');
 
     // append table header
@@ -123,14 +106,12 @@ submitButton.addEventListener('click', function(){
 
 });
 resetButton.addEventListener('click', function(){
-    event.preventDefault();
     window.location.href = '../html/searchApp.html';
 });
 
 
 for(var i = 1; i < formValue.length; i++){
     selectedCGpu[formValue[i]] = 0;
-    showCGPU(formValue[i], search(formValue[i]));
     (function (index) {
         var button = document.getElementById(formValue[index] + 'Button');
         button.addEventListener('click', function(){

@@ -1,32 +1,39 @@
 var searchResults = document.getElementById('searchResults');
+var buttonAdd = document.getElementById('buttonAdd');
 
-function modifyButton(PriceTd) {
-    var tmp = PriceTd.textContent;
+showTableWithData();
+
+function modifyButton(row) {
+    var PriceTd = row.querySelector('.price');
+    var oldPrice = PriceTd.textContent;
     PriceTd.textContent = '';
     var input = document.createElement('input');
     PriceTd.appendChild(input);
-    input.value = tmp;
+    input.value = oldPrice;
 }
-function saveModifyButton(PriceTd) {
+
+function saveModifyButton(row) {
+    var PriceTd = row.querySelector('.price');
+    var IdTd = row.querySelector('.id');
     var input = PriceTd.querySelector('input');
-    var tmp = input.value;
-    PriceTd.textContent = tmp;
-
-    // todo 
+    var newPrice = input.value;
+    var id = IdTd.textContent;
+    PriceTd.textContent = newPrice;
+    console.log('modify laptop price:', id, newPrice);
 }
 
-function removeLaptop(row){
-    var id = row.querySelector('.id')
-    console.log(id.textContent);
-
-    // todo: input Laptop id, remove it
-    
+function removeLaptop(row) {
+    var id = row.querySelector('.id').textContent;
+    console.log('remove laptop:', id);
     row.remove();
 }
-showTableWithData();
+
 function showTableWithData() {
     Data = getLaptopData();
     searchResults.innerHTML = ''; // clear result
+
+    const buttonName = ['modify', 'remove'];
+    const buttonText = { 'modify': ['修改價格', '確認'], 'remove': ['移除筆電', '確定?'] };
 
     if (Data.length > 0) {
         var table = document.createElement('table');
@@ -34,83 +41,64 @@ function showTableWithData() {
         // append table header
         var tableHeader = document.createElement('tr');
         var headerKeys = Object.keys(Data[0]);
-        var buttonName = ['modify', 'remove'];
-        var buttonText = ['修改價格', '移除筆電'];
 
         for (var i = 0; i < headerKeys.length; i++) {
             var th = document.createElement('th');
             th.textContent = headerKeys[i];
             tableHeader.appendChild(th);
         }
-        // for (var j = 0; j<)
-        var th = document.createElement('th');
-        th.textContent = 'modify';
-        tableHeader.appendChild(th);
-        table.appendChild(tableHeader);
-        var th = document.createElement('th');
-        th.textContent = 'remove';
-        tableHeader.appendChild(th);
-        table.appendChild(tableHeader);
+        for (var i = 0; i < buttonName.length; i++) {
+            var th = document.createElement('th');
+            th.textContent = buttonName[i];
+            tableHeader.appendChild(th);
+            table.appendChild(tableHeader);
+        }
 
         // append table rows
-        var buttonList = [];
-        var removeButtonList = [];
-        var PriceTdList = [];
         var tableRowList = [];
         for (var i = 0; i < Data.length; i++) {
             var tableRow = document.createElement('tr');
             var rowData = Object.values(Data[i]);
+
             for (var j = 0; j < rowData.length; j++) {
                 var td = document.createElement('td');
                 td.textContent = rowData[j];
                 td.className = headerKeys[j];
                 tableRow.appendChild(td);
             }
-
-            for (var j = 0; j < 2; j++){
-                
+            for (var j = 0; j < 2; j++) {
+                var td = document.createElement('td');
+                var button;
+                td.className = buttonName[j];
+                button = document.createElement('button');
+                button.className = buttonName[j] + 'Button';
+                button.textContent = buttonText[buttonName[j]][0];
+                td.appendChild(button);
+                tableRow.appendChild(td);
             }
-            var button;
-            var td = document.createElement('td');
-            td.className = 'modify';
-            button = document.createElement('button');
-            button.className = 'modifyButton';
-            button.textContent = '修改價格';
-            td.appendChild(button);
-            tableRow.appendChild(td);
-            
-            
-            var td = document.createElement('td');
-            td.className = 'remove';
-            button = document.createElement('button');
-            button.className = 'removeButton';
-            button.textContent = '移除筆電';
-            td.appendChild(button);
-            tableRow.appendChild(td);
 
             tableRowList.push(tableRow);
+
             (function (index) {
                 var modifiedButton = tableRowList[index].querySelector('.modifyButton');
-                var PriceTd = tableRowList[index].querySelector('.price');
                 modifiedButton.addEventListener('click', function () {
-                    if (modifiedButton.textContent == '修改價格') {
-                        modifiedButton.textContent = '確認';
-                        modifyButton(PriceTd);
+                    if (modifiedButton.textContent == buttonText['modify'][0]) {
+                        modifiedButton.textContent = buttonText['modify'][1];
+                        modifyButton(tableRowList[index]);
                     } else {
-                        modifiedButton.textContent = '修改價格';
-                        saveModifyButton(PriceTd);
+                        modifiedButton.textContent = buttonText['modify'][0];
+                        saveModifyButton(tableRowList[index]);
                     }
                 });
 
                 var removeButton = tableRowList[index].querySelector('.removeButton');
                 removeButton.addEventListener('click', function () {
-                    if (removeButton.textContent == '移除筆電') {
-                        removeButton.textContent = '確認?';
+                    if (removeButton.textContent == buttonText['remove'][0]) {
+                        removeButton.textContent = buttonText['remove'][1];
                     } else {
                         removeLaptop(tableRowList[index]);
                     }
                 })
-
             })(i);
 
             table.appendChild(tableRow);
@@ -138,8 +126,8 @@ function getLaptopData() {
                 storedDatas[storedDatasName[i]] = [-1e7, 1e7];
             }
         }
-        console.log(storedDatas[storedDatasName[i]]);
     }
+    console.log(storedDatas);
 
     // TODO: get some data
     var data = [
@@ -152,3 +140,8 @@ function getLaptopData() {
 
     return data
 }
+
+// TODO: add application
+buttonAdd.addEventListener('click', function () {
+    window.location.href = '../html/addLaptop.html';
+});
