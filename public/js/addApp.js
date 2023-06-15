@@ -1,9 +1,18 @@
-var searchAppButton = document.getElementById('searchAppButton');
-searchAppButton.addEventListener('click', function () {
-    window.location.href = '../html/searchApp.html'
-});
+var formValue = ['app-name', 'cpu-requirement', 'gpu-requirement'];
+// function getvalues(){
+//     for(var i = 0; i < formValue.length; i++){
+//         var formData = document.getElementById(formValue[i]);
+//         // formData.addEventListener('click')
+//     }
+// }
 
-var hardwareStrictButton = document.getElementById('hardwareStrictButton');
-hardwareStrictButton.addEventListener('click', function () {
-    window.location.href = '../html/hardwareStrict.html'
-});
+// todo
+
+// cpuRequirementSearchResults
+function searchCPU(keyword){
+}
+
+// gpuRequirementSearchResults
+function searchGPU(keyword){
+
+}

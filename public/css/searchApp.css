@@ -1,6 +1,8 @@
     .search-container {
         /* display: block, flex; */
-        display: block;
+        display: flex;
+        justify-content: center;
+        align-items: center;
         width: 80%;
         margin-left: 10%;
     }
@@ -14,16 +16,16 @@
 
     #searchButton {
         padding: 1% 2%;
-        background-color: #FFFFFF;
-        border-radius: 10px;
-        width: 1%;
-        /* height: 1%; */
-        float: right;
+        background-color: #70D1E5;
+        border-radius: 10vh;
+        height: 2vh;
         cursor: pointer;
     }
 
+
     .table-container {
-        height: 400px;
+        /* justify-content: center; */
+        height: 60vh;
         overflow: auto;
     }
 
@@ -31,7 +33,6 @@
         margin-top: 20px;
         text-align: center;
         border-radius: 10px;
-        color: #FFFFFF;
     }
 
     table {
@@ -45,18 +46,16 @@
         border: 1px solid #ccc;
     }
 
-    /* .button-container {
+    .button-container {
         display: flex;
-        align-items: right;
+        /* align-items: right; */
         justify-content: right;
-        margin-top: 20vh;
-        margin-left: 25vh;
-        width: 50vw;
-        height: 50vh;
-        margin: 0;
-        padding: 0;
+        /* margin-top: 20vh; */
+        width: 80%;
+        margin-left: 10%;
+        /* height: 50vh; */
     }
-    .button {
+    /* .button {
         padding: 1vh 1vw;
         background-color: #FFFFFF;
         color: #000000;

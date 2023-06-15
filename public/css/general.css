@@ -6,10 +6,19 @@ body {
 
 .header-container {
     display: flex;
+    align-items: center;
+    height: 10vh;
 }
 
 .icon {
     margin-right: 1%;
-    width: 5%;
-    height: auto;
+    width: 10vh;
+    height: 10vh;
+}
+
+.center-container {
+    display: flex;
+    justify-content: center;
+    /* align-items: center; */
+    /* height: 100vh; */
 }

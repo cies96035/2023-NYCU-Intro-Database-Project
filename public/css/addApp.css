@@ -18,3 +18,16 @@
     margin: 20px;
     font-size: 40px;
 }
+
+form {
+    width: 300px;
+}
+
+
+.form-group {
+    margin-bottom: 10px;
+}
+
+.form-group label {
+    display: block;
+}

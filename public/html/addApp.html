@@ -2,22 +2,67 @@
 <html>
 
 <head>
-    <title>主頁</title>
+    <title>應用表單</title>
     <link rel="stylesheet" type="text/css" href="../css/general.css">
     <link rel="stylesheet" type="text/css" href="../css/addApp.css">
 </head>
 
 <body>
-    <div class="header-container">
-        <img src="../img/laptop.png" class="icon">
-        <h1>挑選你的筆電</h1>
-    </div>
+    <div class="center-container">
+        <form>
+            <div class="form-group">
+                <label for="appName">應用名稱:</label>
+                <input type="text" id="appName" name="appName" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="IntelcpuRequirement">最低 CPU要求(Intel):</label>
+                <input type="text" id="IntelcpuRequirement" name="IntelcpuRequirement">
+                <button id="IntelcpuRequirementSearch">搜尋</button>
+                <div class="table-container">
+                    <div id="IntelcpuRequirementSearchResults">
+                        <!-- get table from js -->
+                    </div>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label for="IntelgpuRequirement">最低 GPU要求(Intel):</label>
+                <input type="text" id="IntelgpuRequirement" name="IntelgpuRequirement">
+                <button id="IntelgpuRequirementSearch">搜尋</button>
+                <div class="table-container">
+                    <div id="IntelgpuRequirementSearchResults">
+                        <!-- get table from js -->
+                    </div>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label for="AMDcpuRequirement">最低 CPU要求(AMD):</label>
+                <input type="text" id="AMDcpuRequirement" name="AMDcpuRequirement">
+                <button id="AMDcpuRequirementSearch">搜尋</button>
+                <div class="table-container">
+                    <div id="AMDcpuRequirementSearchResults">
+                        <!-- get table from js -->
+                    </div>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label for="AMDgpuRequirement">最低 GPU要求(AMD):</label>
+                <input type="text" id="AMDgpuRequirement" name="AMDgpuRequirement">
+                <button id="AMDgpuRequirementSearch">搜尋</button>
+                <div class="table-container">
+                    <div id="AMDgpuRequirementSearchResults">
+                        <!-- get table from js -->
+                    </div>
+                </div>
+            </div>
 
-    <div class="button-container">
-        <button id="searchAppButton" class="button">Search by Apps</button>
-        <button id="hardwareStrictButton" class="button">Search my laptop</button>
+            <button type="submit">新增</button>
+            <button type="reset">取消</button>
+        </form>
     </div>
-
 
     <script src="../js/addApp.js"></script>
 </body>
