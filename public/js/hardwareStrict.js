@@ -1,9 +1,27 @@
-var attributeList = ["screenSize", "price", "weight"]
-var buttonNext = document.getElementById('buttonNext');
+var attributeList = ["screenSize", "price", "weight"];
+
+Init();
+
+function Init(){
+    for (var i = 0; i < attributeList.length; i++) {
+        var radios = document.querySelectorAll('input[name="' + attributeList[i] + '"]');
+        for (var j = 0; j < radios.length; j++) {
+            radios[j].addEventListener('change', (function (attribute) {
+                return function () {
+                    handleChange(attribute);
+                };
+            })(attributeList[i]));
+        }
+    }
+
+    document.getElementById('buttonNext').addEventListener('click', function () {
+        SaveAttribute();
+        window.location.href = '../html/result.html';
+    });
+}
 
 function handleChange(attributeName) {
     var attrRadio = document.querySelector('input[name="' + attributeName + '"]:checked');
-    console.log(attrRadio);
     var attrCustomDiv = document.getElementById(attributeName + 'Custom');
 
     if (attrRadio && attrRadio.value === 'other') {
@@ -37,21 +55,4 @@ function SaveAttribute() {
         localStorage.setItem(attributeName, JSON.stringify(limit));
     }
     console.log(limit);
-}
-
-
-buttonNext.addEventListener('click', function () {
-    SaveAttribute();
-    window.location.href = '../html/result.html';
-});
-
-for (var i = 0; i < attributeList.length; i++) {
-    var Radios = document.querySelectorAll('input[name="' + attributeList[i] + '"]');
-    for (var j = 0; j < Radios.length; j++) {
-        Radios[j].addEventListener('change', (function (attribute) {
-            return function () {
-                handleChange(attribute);
-            };
-        })(attributeList[i]));
-    }
 }

@@ -5,11 +5,14 @@ showTableWithData();
 
 function modifyButton(row) {
     var PriceTd = row.querySelector('.price');
+    
     var oldPrice = PriceTd.textContent;
+
     PriceTd.textContent = '';
+
     var input = document.createElement('input');
-    PriceTd.appendChild(input);
     input.value = oldPrice;
+    PriceTd.appendChild(input);
 }
 
 function saveModifyButton(row) {
