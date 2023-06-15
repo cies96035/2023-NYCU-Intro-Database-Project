@@ -147,10 +147,10 @@ const db = new sqlite3.Database('./project.db',sqlite3.OPEN_READWRITE, (err) => 
 // **************************
 // Insert data into table cpu
 // **************************
-// sql = 'INSERT INTO cpu(name, brand, performance, website) VALUES (?, ?, ?, ?)';
+// sql = 'INSERT INTO cpu(id, name, brand, performance) VALUES (?, ?, ?, ?)';
 // db.run(
 //     sql,
-//     ["AMD R5-1400", "AMD", 61, "https://cpu.userbenchmark.com/AMD-Ryzen-5-1400/Rating/3922"],
+//     [-1,"none", "AMD", 100000],
 //     (err) => {
 //         if (err) return console.error(err.message);
 //     }
@@ -160,14 +160,15 @@ const db = new sqlite3.Database('./project.db',sqlite3.OPEN_READWRITE, (err) => 
 // **************************
 // Insert data into table gpu
 // **************************
-// sql = 'INSERT INTO gpu(name, performance, brand, website) VALUES (?, ?, ?, ?)';
+// sql = 'INSERT INTO gpu(id, name, performance, brand) VALUES (?, ?, ?, ?)';
 // db.run(
 //     sql,
-//     ["RX 470", 39.5, "AMD", "https://gpu.userbenchmark.com/AMD-RX-470/Rating/3640"],
+//     [-1, "none", 100000, "AMD"],
 //     (err) => {
 //         if (err) return console.error(err.message);
 //     }
 // );
+
 
 
 // **************

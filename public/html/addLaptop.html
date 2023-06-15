@@ -11,53 +11,61 @@
     <div class="center-container">
         <form>
             <div class="form-group">
-                <label for="name">應用名稱:</label>
-                <input type="text" id="name" name="name" required>
+                <label for="model">model:</label>
+                <input type="text" id="model" name="model" required>
             </div>
-
             <div class="form-group">
-                <label for="cpu_AMD">最低 CPU要求(AMD):</label>
-                <input type="text" id="cpu_AMD" name="cpu_AMD">
-                <button id="cpu_AMDButton">搜尋</button>
+                <label for="screen">screen:</label>
+                <input type="text" id="screen" name="screen" required>
+            </div>
+            <div class="form-group">
+                <label for="model">model:</label>
+                <input type="text" id="model" name="model" required>
+            </div>
+            <div class="form-group">
+                <label for="ram">ram:</label>
+                <input type="text" id="ram" name="ram" required>
+            </div>
+            <div class="form-group">
+                <label for="rom">rom:</label>
+                <input type="text" id="rom" name="rom" required>
+            </div>
+            <div class="form-group">
+                <label for="interface">interface:</label>
+                <input type="text" id="interface" name="interface" required>
+            </div>
+            <div class="form-group">
+                <label for="weight">weight:</label>
+                <input type="text" id="weight" name="weight" required>
+            </div>
+            <div class="form-group">
+                <label for="price">price:</label>
+                <input type="text" id="price" name="price" required>
+            </div>
+ 
+            <div class="form-group">
+                <label for="cpu">cpu:</label>
+                <input type="text" id="cpu" name="cpu">
+                <button id="cpuButton">搜尋</button>
                 <div class="table-container">
-                    <div id="cpu_AMDResults">
+                    <div id="cpuResults">
                         <!-- get table from js -->
                     </div>
                 </div>
             </div>
 
+
             <div class="form-group">
-                <label for="cpu_Intel">最低 CPU要求(Intel):</label>
-                <input type="text" id="cpu_Intel" name="cpu_Intel">
-                <button id="cpu_IntelButton">搜尋</button>
+                <label for="gpu">gpu:</label>
+                <input type="text" id="gpu" name="gpu">
+                <button id="gpuButton">搜尋</button>
                 <div class="table-container">
-                    <div id="cpu_IntelResults">
+                    <div id="gpuResults">
                         <!-- get table from js -->
                     </div>
                 </div>
             </div>
 
-            <div class="form-group">
-                <label for="gpu_AMD">最低 GPU要求(AMD):</label>
-                <input type="text" id="gpu_AMD" name="gpu_AMD">
-                <button id="gpu_AMDButton">搜尋</button>
-                <div class="table-container">
-                    <div id="gpu_AMDResults">
-                        <!-- get table from js -->
-                    </div>
-                </div>
-            </div>
-
-            <div class="form-group">
-                <label for="gpu_Nvidia">最低 GPU要求(Nvidia):</label>
-                <input type="text" id="gpu_Nvidia" name="gpu_Nvidia">
-                <button id="gpu_NvidiaButton">搜尋</button>
-                <div class="table-container">
-                    <div id="gpu_NvidiaResults">
-                        <!-- get table from js -->
-                    </div>
-                </div>
-            </div>
 
             <button id="submit">新增</button>
             <button id="reset">取消</button>

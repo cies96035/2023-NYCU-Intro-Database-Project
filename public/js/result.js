@@ -130,6 +130,7 @@ function getLaptopData() {
             }
         }
     }
+
     console.log(storedDatas);
 
     // TODO: get some data

@@ -57,15 +57,30 @@ function searchDataFunction(keyword) {
     .then(response => response.json())
     .then(data => {
         console.log(data);
+
+        // data.thumbnail is an array of base64 encoded strings
+    
         
         var keys = Object.keys(data);
         var results = [];
         for(var i = 0; i < data[keys[0]].length; i++){
             var result = {};
             for(var j = 0; j < keys.length; j++){
-                result[keys[j]] = data[keys[j]][i];
+                if(keys[j] == 'thumbnail'){
+                    var binary = atob(data[keys[j]][i]);
+                    var array = [];
+                    for (var k = 0; k < binary.length; k++) {
+                        array.push(binary.charCodeAt(k));
+                    }
+                    var blob = new Blob([new Uint8Array(array)], {type: 'image/jpeg'});
+                    var objectURL = URL.createObjectURL(blob);
+                    result[keys[j]] = objectURL;
+                }else{
+                    result[keys[j]] = data[keys[j]][i];
+                }
             }
             results.push(result);
+            console.log(i);
         }
         console.log(results);
         showTableWithDate(results);
@@ -118,7 +133,13 @@ function showTableWithDate(Data) {
 
         for (var j = 0; j < rowData.length; j++) {
             var td = document.createElement('td');
-            td.textContent = rowData[j];
+            if(headerKeys[j + 1] == 'thumbnail'){
+                var img = document.createElement('img');
+                img.src = rowData[j];
+                td.appendChild(img);
+            }else{
+                td.textContent = rowData[j];
+            }
             td.className = headerKeys[j + 1];
             tableRow.appendChild(td);
         }
