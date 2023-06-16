@@ -4,75 +4,87 @@
 <head>
     <title>新增筆電</title>
     <link rel="stylesheet" type="text/css" href="../css/general.css">
-    <link rel="stylesheet" type="text/css" href="../css/addApp.css">
+    <link rel="stylesheet" type="text/css" href="../css/addLaptop.css">
 </head>
 
 <body>
+    <div class="header-container">
+        <img src="../img/laptop.png" class="icon">
+        <h1>新增筆電</h1>
+    </div>
     <div class="center-container">
         <form>
             <div class="form-group">
                 <label for="model">model:</label>
-                <input type="text" id="model" name="model" required>
+                <input type="text" id="model" name="model" required class="searchInput">
             </div>
+
             <div class="form-group">
                 <label for="screen">screen:</label>
-                <input type="text" id="screen" name="screen" required>
+                <input type="text" id="screen" name="screen" required class="searchInput">
             </div>
-            <div class="form-group">
-                <label for="model">model:</label>
-                <input type="text" id="model" name="model" required>
-            </div>
+
             <div class="form-group">
                 <label for="ram">ram:</label>
-                <input type="text" id="ram" name="ram" required>
+                <input type="text" id="ram" name="ram" required class="searchInput">
             </div>
+
             <div class="form-group">
                 <label for="rom">rom:</label>
-                <input type="text" id="rom" name="rom" required>
+                <input type="text" id="rom" name="rom" required class="searchInput">
             </div>
+
             <div class="form-group">
                 <label for="interface">interface:</label>
-                <input type="text" id="interface" name="interface" required>
+                <input type="text" id="interface" name="interface" required class="searchInput">
             </div>
+
             <div class="form-group">
                 <label for="weight">weight:</label>
-                <input type="text" id="weight" name="weight" required>
+                <input type="text" id="weight" name="weight" required class="searchInput">
             </div>
+
             <div class="form-group">
                 <label for="price">price:</label>
-                <input type="text" id="price" name="price" required>
+                <input type="text" id="price" name="price" required class="searchInput">
             </div>
- 
+
             <div class="form-group">
                 <label for="cpu">cpu:</label>
-                <input type="text" id="cpu" name="cpu">
-                <button id="cpuButton">搜尋</button>
+                <div class="search-container">
+                    <input type="text" id="cpu" name="cpu" class="searchInput">
+                    <img src="../img/search.png" id="cpuButton" class="searchButton">
+                </div>
                 <div class="table-container">
-                    <div id="cpuResults">
+                    <input type="radio" name="cpuradio" id="cpuNoneradio">None
+                    <div id="cpuResults" class="radioResults">
                         <!-- get table from js -->
                     </div>
                 </div>
             </div>
-
 
             <div class="form-group">
                 <label for="gpu">gpu:</label>
-                <input type="text" id="gpu" name="gpu">
-                <button id="gpuButton">搜尋</button>
+                <div class="search-container">
+                    <input type="text" id="gpu" name="gpu" class="searchInput">
+                    <img src="../img/search.png" id="gpuButton" class="searchButton">
+                </div>
                 <div class="table-container">
-                    <div id="gpuResults">
+                    <input type="radio" name="gpuradio" id="gpuNoneradio">None
+                    <div id="gpuResults" class="radioResults">
                         <!-- get table from js -->
                     </div>
                 </div>
             </div>
 
-
-            <button id="submit">新增</button>
-            <button id="reset">取消</button>
         </form>
     </div>
+    <div class="button-container">
+        <button id="reset" class="button">取消</button>
+        <button id="submit" class="button buttonDone">新增</button>
+    </div>
 
-    <script src="../js/addApp.js"></script>
+    <script src="../js/addLaptop.js"></script>
 </body>
 
 </html>

@@ -1,0 +1,1 @@
+https://cdn.akamai.steamstatic.com/steam/apps/1880832/capsule_184x69.jpg?t=1676051756

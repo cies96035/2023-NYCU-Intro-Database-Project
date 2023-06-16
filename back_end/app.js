@@ -436,12 +436,12 @@ function searchLaptops(appId, Smin, Smax, Wmin, Wmax, Pmin, Pmax){
 }
 
 // data contains all the rows that laptop has
-function createLaptop(data){
+function createLaptop(model, screen, cpu, ram, rom, gpu, interface, weight, price){
     return new Promise((resolve, reject) => {
         sql = 'INSERT INTO laptop(model, screen, cpu, ram, rom, gpu, interface, weight, price) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)';
         db.run(
             sql,
-            data,
+            [model, screen, cpu, ram, rom, gpu, interface, weight, price],
             (err) => {
                 if(err) {
                     console.error('createLaptop failed!!');
@@ -457,12 +457,12 @@ function createLaptop(data){
 }
 
 // data contains 1. the target model name and 2. the new price
-function updateLaptop(data){
+function updateLaptop(id, price){
     return new Promise((resolve, reject) => {
-        sql = 'UPDATE laptop SET price = ? WHERE model = ?';
+        sql = 'UPDATE laptop SET price = ? WHERE id = ?';
         db.run(
             sql,
-            [data[1], data[0]],
+            [price, id],
             (err) => {
                 if(err) {
                     console.error('updateLaptop failed!!');
@@ -478,12 +478,12 @@ function updateLaptop(data){
 }
 
 // data is the target model name
-function deleteLaptop(data){
+function deleteLaptop(id){
     return new Promise((resolve, reject) => {
-        sql = 'DELETE FROM laptop WHERE model = ?';
+        sql = 'DELETE FROM laptop WHERE id = ?';
         db.run(
             sql,
-            data,
+            [id],
             (err) => {
                 if(err) {
                     console.error('deleteLaptop failed!!');
@@ -516,78 +516,10 @@ function getGameImage(game_id){
     })
 }
 
-// async function updateGameImage(game_id, URL) {
-//     // Dynamically import node-fetch
-//     const fetch = (await import('node-fetch')).default;
-
-//     try {
-//         const response = await fetch(URL);
-//         const arrayBuffer = await response.arrayBuffer();
-//         const buffer = Buffer.from(arrayBuffer);
-
-//         sql = 'UPDATE game SET image = ? WHERE id = ?';
-//         db.run(sql, [buffer, game_id], (err) => {
-//             if (err) {
-//                 console.error(err);
-//             } else {
-//                 console.log('Insert successfully!');
-//             }
-//         });
-//     } catch (error) {
-//         console.error('Error:', error);
-//     } 
-//     // finally {
-//     //     db.close((err) => {
-//     //         if (err) {
-//     //             console.error(err.message);
-//     //         }
-//     //     });
-//     // }
-// }
-
-// function createGame(name, cpu_AMD, cpu_Intel, ram, gpu_AMD, gpu_Nvidia, rom){
-//     return new Promise((resolve, reject) => {
-//         sql = 'INSERT INTO game(name, cpu_AMD, cpu_Intel, ram, gpu_AMD, gpu_Nvidia, rom) VALUES (?, ?, ?, ?, ?, ?, ?)';
-//         db.run(
-//             sql,
-//             [name, cpu_AMD, cpu_Intel, ram, gpu_AMD, gpu_Nvidia, rom],
-//             (err) => {
-//                 if(err) {
-//                     console.error('createGame failed!!');
-//                     console.error(err.message);
-//                 }
-//                 else {
-//                     console.log('createGame compelte!!');
-//                     resolve();
-//                 }
-//             }
-//         );
-//     });
-// }
-// // function createGame(name, cpu_AMD, cpu_Intel, gpu_AMD, gpu_Nvidia){
-// //     return new Promise((resolve, reject) => {
-// //         sql = 'INSERT INTO game(name, cpu_AMD, cpu_Intel, gpu_AMD, gpu_Nvidia) VALUES (?, ?, ?, ?, ?)';
-// //         db.run(
-// //             sql,
-// //             [name, cpu_AMD, cpu_Intel, gpu_AMD, gpu_Nvidia],
-// //             (err) => {
-// //                 if(err) {
-// //                     console.error('createGame failed!!');
-// //                     console.error(err.message);
-// //                 }
-// //                 else {
-// //                     console.log('createGame compelte!!');
-// //                     resolve();
-// //                 }
-// //             }
-// //         );
-// //     });
-// // }
-
-async function createGame(name, cpu_AMD, cpu_Intel, gpu_AMD, gpu_Nvidia) {
+async function createGame(name, cpu_AMD, cpu_Intel, ram, gpu_AMD, gpu_Nvidia, rom, url) {
     try {
         // Insert a new game into the database
-        const sql = 'INSERT INTO game(name, cpu_AMD, cpu_Intel, gpu_AMD, gpu_Nvidia) VALUES (?, ?, ?, ?, ?)';
+        const sql = 'INSERT INTO game(name, cpu_AMD, cpu_Intel, ram, gpu_AMD, gpu_Nvidia, rom) VALUES (?, ?, ?, ?, ?, ?, ?)';
         await new Promise((resolve, reject) => {
             db.run(sql, [name, cpu_AMD, cpu_Intel, gpu_AMD, gpu_Nvidia], (err) => {
                 if (err) {
@@ -600,10 +532,13 @@ async function createGame(name, cpu_AMD, cpu_Intel, gpu_AMD, gpu_Nvidia) {
                 }
             });
         });
-
-        const defaultImageUrl = 'https://www.shutterstock.com/image-illustration/none-flat-icon-260nw-1266167038.jpg';
+        
+        console.log('a', url);
+        if(url == 'none'){
+            url = 'https://i.imgur.com/icrHei5.jpg';
+        }
         // Set a default image for the newly created game
-        await updateGameImage(name, defaultImageUrl);
+        await updateGameImage(name, url);
 
     } catch (error) {
         console.error('Error:', error);
@@ -633,6 +568,71 @@ async function updateGameImage(game_name, URL) {
     } catch (error) {
         console.error('Error:', error);
     }
+}
+
+
+function getGameIds(keyword) {
+    return import('node-fetch')
+        .then(({ default: fetch }) => {
+            return fetch('https://api.steampowered.com/ISteamApps/GetAppList/v2');
+        })
+        .then(response => {
+            return response.json();
+        })
+        .then(data => {
+            const games = data.applist.apps.filter(app => app.name.toLowerCase().includes(keyword.toLowerCase()));
+
+            if (games.length > 0) {
+                const gameIds = games.map(game => game.appid.toString());
+                console.log(`Found ${gameIds.length} games with the keyword "${keyword}".`);
+                return gameIds;
+            } else {
+                console.log(`No games found with the keyword "${keyword}".`);
+                return [];
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+}
+
+function getGameCapsuleImages(gameIds) {
+    const fetchPromises = gameIds.map(gameId => {
+        return import('node-fetch').then(({default: fetch}) => {
+            return fetch(`https://store.steampowered.com/api/appdetails?appids=${gameId}`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data[gameId] && data[gameId].success && data[gameId].data.type === 'game') {
+                        return data[gameId].data.capsule_imagev5;
+                    } else {
+                        console.log(`No data found for game with appid ${gameId} or type is not 'game'`);
+                        return null;
+                    }
+                });
+        });
+    });
+
+    return Promise.all(fetchPromises)
+        .then(images => images.filter(img => img !== null))
+        .catch(error => {
+            console.error('Error:', error);
+        });
+}
+
+function fetchImagesFromUrls(urlList) {
+    const fetchPromises = urlList.map(url => {
+        return import('node-fetch').then(({ default: fetch }) => {
+            return fetch(url);
+        })
+        .then(response => response.arrayBuffer())
+        .then(arrayBuffer => {
+            // Convert arrayBuffer to base64
+            const base64 = Buffer.from(arrayBuffer).toString('base64');
+            return { url, image: `data:image/jpeg;base64,${base64}` };
+        });
+    });
+
+    return Promise.all(fetchPromises);
 }
 
 function searchCpu_AMDByKeyword(keyword) {
@@ -712,14 +712,23 @@ function searchGpu_NvidiaByKeyword(keyword) {
 }
 
 // 整合上述四個function成同一個function
+// 整合上述六個function成同一個function
 function search(attrName, keyword) {
     return new Promise((resolve, reject) => {
-        if(attrName == 'cpu_AMD'){
+        if(attrName == 'cpu'){
+            searchCpuByKeyword(keyword)
+            .then(function(result) {resolve(result);})
+        }
+        else if(attrName == 'cpu_AMD'){
             searchCpu_AMDByKeyword(keyword)
             .then(function(result) {resolve(result);})
         }
         else if (attrName == 'cpu_Intel'){
             searchCpu_IntelByKeyword(keyword)
+            .then(function(result) {resolve(result);})
+        }
+        else if (attrName == 'gpu'){
+            searchGpuByKeyword(keyword)
             .then(function(result) {resolve(result);})
         }
         else if (attrName == 'gpu_AMD'){
@@ -737,7 +746,43 @@ function search(attrName, keyword) {
     })
 }
 
+function searchCpuByKeyword(keyword) {
+    return new Promise((resolve, reject) => {
+        sql = `SELECT * FROM cpu WHERE cpu.name LIKE '%${keyword}%' AND cpu.name <> 'none';`;
 
+        db.all(sql, (err, rows) => {
+            if(err) {
+                console.error('searchCpuByKeyword failed!!');
+                console.error(err.message);
+            }
+            else {
+                console.log('searchCpuByKeyword complete!!');
+                const result1 = rows.map(row => row.id);
+                const result2 = rows.map(row => row.name);
+                resolve({id: result1, name: result2});
+            }
+        });
+    });
+}
+
+function searchGpuByKeyword(keyword) {
+    return new Promise((resolve, reject) => {
+        sql = `SELECT * FROM gpu WHERE gpu.name LIKE '%${keyword}%' AND gpu.name <> 'none';`;
+
+        db.all(sql, (err, rows) => {
+            if(err) {
+                console.error('searchGpuByKeyword failed!!');
+                console.error(err.message);
+            }
+            else {
+                console.log('searchGpuByKeyword complete!!');
+                const result1 = rows.map(row => row.id);
+                const result2 = rows.map(row => row.name);
+                resolve({id: result1, name: result2});
+            }
+        });
+    })
+}
 
 // createTableOfAppId()
 // .then(function() { return fillInAppIdTable([2]);})
@@ -782,6 +827,38 @@ module.exports = {
     searchApplicationsByKeyword,
     search,
     createGame,
-    searchLaptops
+    searchLaptops,
+    createLaptop,
+    updateLaptop,
+    deleteLaptop,
+    getGameIds,
+    getGameCapsuleImages,
+    fetchImagesFromUrls
 }
 
+// var button2 = document.getElementById('button2');
+// button2.addEventListener('click', function() {
+//     let myConstraints = {};
+//     myConstraints['appId'] = [1, 2];
+//     myConstraints['screen'] = [0, 100];
+//     myConstraints['weight'] = [0, 100];
+//     myConstraints['price'] = [100000, 200000];
+
+
+//     fetch('http://localhost:3000/searchLaptopXXX', {
+//         method: 'POST',
+//         headers: {
+//             'Content-Type': 'application/json',
+//         },
+//         body: JSON.stringify({ constraints: myConstraints}),
+//     })
+//     .then(response => response.json())
+//     .then(data => {
+//         console.log(data);
+//         // do something....
+
+//     })
+//     .catch((error) => {
+//         console.error('Error:', error);
+//     });
+// });

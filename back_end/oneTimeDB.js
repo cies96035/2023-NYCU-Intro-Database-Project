@@ -179,3 +179,6 @@ const db = new sqlite3.Database('./project.db',sqlite3.OPEN_READWRITE, (err) => 
 // db.all(sql, (err, rows) => {
 //     console.log(rows);
 // })
+
+sql = `DELETE FROM game WHERE game.id >= 3`
+db.run(sql);

@@ -19,6 +19,75 @@ body {
 .center-container {
     display: flex;
     justify-content: center;
-    /* align-items: center; */
-    /* height: 100vh; */
+    height: 80vh;
+    overflow: auto;
+}
+
+.search-container {
+    /* display: block, flex; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* width: 80%; */
+    /* margin-left: 10%; */
+}
+
+
+.searchInput {
+    width: 90%;
+    /* margin-left: 10%; */
+    padding: 1% 2%;
+    font-size: 16px;
+    border-radius: 10px;
+}
+
+.searchButton {
+    padding: 1% 2%;
+    background-color: #70D1E5;
+    border-radius: 10vh;
+    height: 2vh;
+    cursor: pointer;
+}
+
+form {
+    width: 300px;
+}
+
+.form-group {
+    margin-bottom: 10px;
+}
+
+.form-group label {
+    display: block;
+}
+
+.hidden{
+    display: none;
+}
+
+.button {
+    padding: 15px 45px;
+    background-color: #FFFFFF;
+    color: #000000;
+    cursor: pointer;
+    border-radius: 20px;
+    text-align: center;
+    margin-right: 20px;
+    font-size: 15px;
+    border: 3px solid #000;
+}
+
+.buttonDone {
+    background-color: #4472c4;
+    color: #ffffff;
+    border: 3px solid #ffffff;
+}
+.button-container {
+    position: absolute;
+    bottom: 2vh;
+    display: flex;
+    justify-content: right;
+    margin-top: 3vh;
+    width: 80%;
+    margin-left: 10%;
 }

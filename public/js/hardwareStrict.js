@@ -18,6 +18,11 @@ function Init(){
         SaveAttribute();
         window.location.href = '../html/result.html';
     });
+
+    document.getElementById('buttonBack').addEventListener('click', function () {
+        SaveAttribute();
+        window.location.href = '../html/searchApp.html';
+    });
 }
 
 function handleChange(attributeName) {
@@ -42,14 +47,14 @@ function SaveAttribute() {
         }
         if (attrRadio.value === 'other') {
             limit = [
-                parseInt(document.getElementById(attributeName + 'MinInput').value),
-                parseInt(document.getElementById(attributeName + 'MaxInput').value)
+                parseFloat(document.getElementById(attributeName + 'MinInput').value),
+                parseFloat(document.getElementById(attributeName + 'MaxInput').value)
             ];
         } else {
             var rangeValues = attrRadio.value.split('~');
             limit = [
-                parseInt(rangeValues[0]),
-                parseInt(rangeValues[1])
+                parseFloat(rangeValues[0]),
+                parseFloat(rangeValues[1])
             ];
         }
         localStorage.setItem(attributeName, JSON.stringify(limit));

@@ -1,6 +1,72 @@
-var formValue = ['name', 'cpu_AMD', 'cpu_Intel', 'gpu_AMD', 'gpu_Nvidia', 'ram', 'rom'];
+var formValue = ['model', 'screen', 'ram', 'rom', 'interface', 'weight', 'price', 'cpu', 'gpu'];
 var selectedCGpu = {};
+Init();
+function Init(){
+    document.getElementById('submit').addEventListener('click', function(){
+        event.preventDefault();
+        for(var i = 0; i < formValue.length; i++){
+            if(formValue[i] == 'cpu' || formValue[i] == 'gpu'){
+                updateSelectedCGPU(formValue[i]);
+            }
+        }
+        var model = document.getElementById(formValue[0]).value;
+        var screen = document.getElementById(formValue[1]).value;
+        var ram = document.getElementById(formValue[2]).value;
+        var rom = document.getElementById(formValue[3]).value;
+        var interface = document.getElementById(formValue[4]).value;
+        var weight = document.getElementById(formValue[5]).value;
+        var price = document.getElementById(formValue[6]).value;
+        var cpu = selectedCGpu['cpu'];
+        var gpu = selectedCGpu['gpu'];
+        attrList = { 'model': model, 'screen': screen, 'cpu': cpu, 'ram': ram, 'rom': rom, 'gpu': gpu, 'interface': interface, 'weight': weight, 'price': price};
+        for(var i = 0; i < formValue.length; i++){
+            if(attrList[formValue[i]] == ''){
+                alert(formValue[i] + '為必需的');
+                return;
+            }
+        }
+        
+        fetch('http://localhost:3000/createLaptopXXX', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+            body: JSON.stringify({ model: model, screen: screen, cpu: cpu, ram: ram, rom: rom, gpu: gpu, interface: interface, weight: weight, price: price}),
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log(data);
+            window.location.href = '../html/result.html';
+        })
+        .catch((error) => {
+            console.error('Error:', error);
+        });
+    });
 
+    
+    document.getElementById('reset').addEventListener('click', function(){
+        event.preventDefault();
+        window.location.href = '../html/result.html';
+    });
+
+
+    for(var i = 0; i < formValue.length; i++){
+        if(formValue[i] == 'cpu' || formValue[i] == 'gpu'){
+            selectedCGpu[formValue[i]] = 0;
+            search(formValue[i]);
+            // showCGPU(formValue[i], );
+            (function (index) {
+                var button = document.getElementById(formValue[index] + 'Button');
+                button.addEventListener('click', function(){
+                    event.preventDefault();
+                    updateSelectedCGPU(formValue[index]);
+                    search(formValue[index]);
+                    // showCGPU(formValue[index], search(formValue[index]));
+                })
+            })(i);
+        }
+    }
+}
 function updateSelectedCGPU(attrName) {
     var searchResults = document.getElementById(attrName + 'Results');
     var radios = searchResults.querySelectorAll('input[type="radio"]');
@@ -20,15 +86,9 @@ function updateSelectedCGPU(attrName) {
     }
 }
 
-function updateAllSelectedCGPU(){
-    for(var i = 1; i < 5; i++){
-        updateSelectedCGPU(formValue[i]);
-    }
-}
-
 function search(attrName){
     var keyword = document.getElementById(attrName).value;
-    console.log('get data for c/gpu: ', attrName, keyword);
+    // console.log('get data for c/gpu: ', attrName, keyword);
 
     if(keyword == ''){
         showCGPU(attrName, []);
@@ -63,7 +123,7 @@ function search(attrName){
 }
 
 function showCGPU(attrName, Data){
-    console.log('a', attrName, Data);
+    // console.log('a', attrName, Data);
     var searchResults = document.getElementById(attrName + 'Results');
     searchResults.innerHTML = '';
 
@@ -80,15 +140,18 @@ function showCGPU(attrName, Data){
     // append table header
     var tableHeader = document.createElement('tr');
     var headerKeys = Object.keys(Data[0]);
-    headerKeys.unshift('select');
+    // headerKeys.unshift(' ');
 
-    for (var i = 0; i < headerKeys.length; i++) {
-        var th = document.createElement('th');
-        th.textContent = headerKeys[i];
-        tableHeader.appendChild(th);
-    }
+    // for (var i = 0; i < headerKeys.length; i++) {
+    //     var th = document.createElement('th');
+    //     if(headerKeys[i] == 'id'){
+    //         th.className = 'hidden';
+    //     }
+    //     th.textContent = headerKeys[i];
+    //     tableHeader.appendChild(th);
+    // }
 
-    table.appendChild(tableHeader);
+    // table.appendChild(tableHeader);
 
     // append table rows
     for (var i = 0; i < Data.length; i++) {
@@ -108,7 +171,10 @@ function showCGPU(attrName, Data){
         for (var j = 0; j < rowData.length; j++) {
             var td = document.createElement('td');
             td.textContent = rowData[j];
-            td.className = headerKeys[j + 1];
+            td.className = headerKeys[j];
+            if(headerKeys[j] == 'id'){
+                td.classList.add('hidden');
+            }
             tableRow.appendChild(td);
         }
 
@@ -118,69 +184,6 @@ function showCGPU(attrName, Data){
     searchResults.appendChild(table);
 }
 
-var submitButton = document.getElementById('submit');
-var resetButton = document.getElementById('reset');
-
-submitButton.addEventListener('click', function(){
-    event.preventDefault();
-    updateAllSelectedCGPU();
-    var name = document.getElementById(formValue[0]).value;
-    var ram = document.getElementById(formValue[5]).value;
-    var rom = document.getElementById(formValue[6]).value;
-    if(name == ''){
-        alert('名稱不能為空');
-        return;
-    }else if(selectedCGpu[formValue[1]] == 0 && selectedCGpu[formValue[2]] == 0){   
-        alert('至少得選一個CPU');
-        return;
-    }else if(selectedCGpu[formValue[3]] == 0 && selectedCGpu[formValue[4]] == 0){
-        alert('至少得選一個GPU');
-        return;
-    }
-    var cpu_AMD = selectedCGpu[formValue[1]];
-    var cpu_Intel = selectedCGpu[formValue[2]];
-    var gpu_AMD = selectedCGpu[formValue[3]];
-    var gpu_Nvidia = selectedCGpu[formValue[4]];
-    fetch('http://localhost:3000/addApp_submit', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ name: name, cpu_AMD: cpu_AMD, cpu_Intel: cpu_Intel, ram: ram, gpu_AMD: gpu_AMD, gpu_Nvidia: gpu_Nvidia, rom: rom}),
-    })
-    .then(response => response.json())
-    .then(data => {
-        console.log(data);
-        // do something....
-    })
-    .catch((error) => {
-        console.error('Error:', error);
-    });
-
-    // window.location.href = '../html/searchApp.html';
-    // console.log('add game:', name, selectedCGpu);
-
-});
-resetButton.addEventListener('click', function(){
-    event.preventDefault();
-    window.location.href = '../html/searchApp.html';
-});
-
-
-for(var i = 1; i < 5; i++){
-    selectedCGpu[formValue[i]] = 0;
-    search(formValue[i]);
-    // showCGPU(formValue[i], );
-    (function (index) {
-        var button = document.getElementById(formValue[index] + 'Button');
-        button.addEventListener('click', function(){
-            event.preventDefault();
-            updateSelectedCGPU(formValue[index]);
-            search(formValue[index]);
-            // showCGPU(formValue[index], search(formValue[index]));
-        })
-    })(i);
-}
 
 // data = [
 //     { Id: 1, cpu: 'a' },
@@ -189,3 +192,35 @@ for(var i = 1; i < 5; i++){
 //     { Id: 4, cpu: 'a' },
 //     { Id: 5, cpu: 'a' }
 // ];
+
+
+// var button2 = document.getElementById('button2');
+// button2.addEventListener('click', function() {
+//     let model = 'new model';            // string
+//     let screen = '15.6\ FHD';           // string begin with {number}\
+//     let cpu = 'Intel i7-11800H 2.3GHz'; // string
+//     let ram = '8GB DDR4-3200asdfa';     // string begin with {number}GB
+//     let rom = '512GB dafwewaw';         // string begin with {number}GB
+//     let gpu = 'Intel Iris Xe Graphics'; // string
+//     let interface = 'awfdsad';          // string
+//     let weight = '1.23Kg/fasfewa';      // string begin with {number}Kg
+//     let price = 11300;                  // Integer
+
+
+//     fetch('http://localhost:3000/createLaptopXXX', {
+//         method: 'POST',
+//         headers: {
+//             'Content-Type': 'application/json',
+//         },
+//         body: JSON.stringify({ model: model, screen: screen, cpu: cpu, ram: ram, rom: rom, gpu: gpu, interface: interface, weight: weight, price: price}),
+//     })
+//     .then(response => response.json())
+//     .then(data => {
+//         console.log(data);
+//         // do something....
+        
+//     })
+//     .catch((error) => {
+//         console.error('Error:', error);
+//     });
+// });

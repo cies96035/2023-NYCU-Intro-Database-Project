@@ -1,7 +1,7 @@
 var searchResults = document.getElementById('searchResults');
 var buttonAdd = document.getElementById('buttonAdd');
 
-showTableWithData();
+getLaptopData();
 
 function modifyButton(row) {
     var PriceTd = row.querySelector('.price');
@@ -23,21 +23,51 @@ function saveModifyButton(row) {
     var id = IdTd.textContent;
     PriceTd.textContent = newPrice;
     console.log('modify laptop price:', id, newPrice);
+
+    fetch('http://localhost:3000/updateLaptopXXX', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ id: id, price: newPrice}),
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log(data);
+    })
+    .catch((error) => {
+        console.error('Error:', error);
+    });
 }
 
 function removeLaptop(row) {
     var id = row.querySelector('.id').textContent;
     console.log('remove laptop:', id);
+    fetch('http://localhost:3000/deleteLaptopXXX', {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json',
+    },
+        body: JSON.stringify({ id: id }),
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log(data);
+        // do something....
+
+    })
+    .catch((error) => {
+        console.error('Error:', error);
+    });
     row.remove();
 }
 
-function showTableWithData() {
-    Data = getLaptopData();
+function showTableWithData(Data) {
     searchResults.innerHTML = ''; // clear result
 
     const buttonName = ['modify', 'remove'];
     const buttonText = { 'modify': ['修改價格', '確認'], 'remove': ['移除筆電', '確定?'] };
-
+    const passKey = ['interface', 'cpu', 'ram', 'rom', 'gpu'];
     if (Data.length > 0) {
         var table = document.createElement('table');
 
@@ -46,10 +76,17 @@ function showTableWithData() {
         var headerKeys = Object.keys(Data[0]);
 
         for (var i = 0; i < headerKeys.length; i++) {
+            if (passKey.includes(headerKeys[i])) {
+                continue;
+            }
             var th = document.createElement('th');
             th.textContent = headerKeys[i];
             tableHeader.appendChild(th);
+            if(headerKeys[i] == 'id'){
+                th.className = 'hidden';
+            }
         }
+
         for (var i = 0; i < buttonName.length; i++) {
             var th = document.createElement('th');
             th.textContent = buttonName[i];
@@ -64,9 +101,15 @@ function showTableWithData() {
             var rowData = Object.values(Data[i]);
 
             for (var j = 0; j < rowData.length; j++) {
+                if (passKey.includes(headerKeys[j])) {
+                    continue;
+                }
                 var td = document.createElement('td');
                 td.textContent = rowData[j];
                 td.className = headerKeys[j];
+                if(headerKeys[j] == 'id'){
+                    td.classList.add('hidden');
+                }
                 tableRow.appendChild(td);
             }
             for (var j = 0; j < 2; j++) {
@@ -75,6 +118,7 @@ function showTableWithData() {
                 td.className = buttonName[j];
                 button = document.createElement('button');
                 button.className = buttonName[j] + 'Button';
+                // button.classList.ap
                 button.textContent = buttonText[buttonName[j]][0];
                 td.appendChild(button);
                 tableRow.appendChild(td);
@@ -128,24 +172,42 @@ function getLaptopData() {
             } else {
                 storedDatas[storedDatasName[i]] = [-1e7, 1e7];
             }
+        }else{
+            storedDatas[storedDatasName[i]] = JSON.parse(storedDatas[storedDatasName[i]]);
         }
     }
+    let myConstraints = {};
+    myConstraints['appId'] = storedDatas[storedDatasName[0]];
+    myConstraints['screen'] = storedDatas[storedDatasName[1]];
+    myConstraints['price'] = storedDatas[storedDatasName[2]];
+    myConstraints['weight'] = storedDatas[storedDatasName[3]];
 
-    console.log(storedDatas);
+    console.log(myConstraints);
+    fetch('http://localhost:3000/searchLaptopXXX', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ constraints: myConstraints}),
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log(data);
+        // do something....
+        
+        showTableWithData(data);
 
-    // TODO: get some data
-    var data = [
-        { id: 1, name: "A", price: 1 },
-        { id: 2, name: "A", price: 1 },
-        { id: 3, name: "A", price: 1 },
-        { id: 4, name: "A", price: 1 },
-        { id: 5, name: "A", price: 1 },
-    ];
-
-    return data
+    })
+    .catch((error) => {
+        console.error('Error:', error);
+    });
 }
 
 // TODO: add application
-buttonAdd.addEventListener('click', function () {
+document.getElementById('buttonAdd').addEventListener('click', function () {
     window.location.href = '../html/addLaptop.html';
+});
+
+document.getElementById('buttonBack').addEventListener('click', function () {
+    window.location.href = '../html/hardwareStrict.html';
 });

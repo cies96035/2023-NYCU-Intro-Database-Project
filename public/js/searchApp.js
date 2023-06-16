@@ -23,6 +23,11 @@ function Init() {
         window.location.href = '../html/hardwareStrict.html';
     });
 
+    document.getElementById('buttonBack').addEventListener('click', function () {
+        updateSelectSet();
+        window.location.href = '../html/mainpage.html';
+    });
+
 }
 
 // research or go to next page -> update selectData
@@ -112,6 +117,9 @@ function showTableWithDate(Data) {
     for (var i = 0; i < headerKeys.length; i++) {
         var th = document.createElement('th');
         th.textContent = headerKeys[i];
+        if(headerKeys[i] == 'gameId'){
+            th.classList.add('hidden');
+        }
         tableHeader.appendChild(th);
     }
 
@@ -133,14 +141,17 @@ function showTableWithDate(Data) {
 
         for (var j = 0; j < rowData.length; j++) {
             var td = document.createElement('td');
+            td.className = headerKeys[j + 1];
             if(headerKeys[j + 1] == 'thumbnail'){
                 var img = document.createElement('img');
                 img.src = rowData[j];
                 td.appendChild(img);
+            }else if(headerKeys[j + 1] == 'gameId'){
+                td.classList.add('hidden');
             }else{
                 td.textContent = rowData[j];
             }
-            td.className = headerKeys[j + 1];
+            
             tableRow.appendChild(td);
         }
 
