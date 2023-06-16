@@ -147,10 +147,10 @@ const db = new sqlite3.Database('./project.db',sqlite3.OPEN_READWRITE, (err) => 
 // **************************
 // Insert data into table cpu
 // **************************
-// sql = 'INSERT INTO cpu(id, name, brand, performance) VALUES (?, ?, ?, ?)';
+// sql = 'INSERT INTO cpu(name, brand, performance, website) VALUES (?, ?, ?, ?)';
 // db.run(
 //     sql,
-//     [-1,"none", "AMD", 100000],
+//     ["AMD R5-1600","AMD", 70.2, 'https://cpu.userbenchmark.com/AMD-Ryzen-5-1600/Rating/3919'],
 //     (err) => {
 //         if (err) return console.error(err.message);
 //     }
@@ -160,10 +160,10 @@ const db = new sqlite3.Database('./project.db',sqlite3.OPEN_READWRITE, (err) => 
 // **************************
 // Insert data into table gpu
 // **************************
-// sql = 'INSERT INTO gpu(id, name, performance, brand) VALUES (?, ?, ?, ?)';
+// sql = 'INSERT INTO gpu(name, performance, brand, website) VALUES (?, ?, ?, ?)';
 // db.run(
 //     sql,
-//     [-1, "none", 100000, "AMD"],
+//     ["GTX1060-6GB", 56.1, "Nvidia", "https://gpu.userbenchmark.com/Nvidia-GTX-1060-6GB/Rating/3639"],
 //     (err) => {
 //         if (err) return console.error(err.message);
 //     }
@@ -180,5 +180,8 @@ const db = new sqlite3.Database('./project.db',sqlite3.OPEN_READWRITE, (err) => 
 //     console.log(rows);
 // })
 
-sql = `DELETE FROM game WHERE game.id >= 3`
+sql = `DELETE FROM game WHERE game.id >= 9`
 db.run(sql);
+sql = `DELETE FROM laptop WHERE laptop.id >= 382`
+db.run(sql);
+

@@ -100,18 +100,23 @@ function updateSelectedValues(attrName) {
         //     }
         // }else{
         // }
-        var selectIdx = row.querySelector('.id').textContent;
+        var selectIdx;
+        if(attrName != 'thumbnail'){
+            selectIdx = row.querySelector('.name').textContent;
+        }else{
+            selectIdx = row.querySelector('.id').textContent;
+        }
         // console.log(selectIdx);
         if (radio.checked) {
             selectedValues[attrName] = selectIdx;
-            if(attrName != 'thumbnail'){
-                selectedValues[attrName] = parseInt(selectedValues[attrName]);
-            }
+            // if(attrName != 'thumbnail'){
+            //     selectedValues[attrName] = parseInt(selectedValues[attrName]);
+            // }
             flg = false;
         }
     }
     if(flg){
-        selectedValues[attrName] = 0;
+        selectedValues[attrName] = 'none';
     }
 }
 

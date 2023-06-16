@@ -29,24 +29,6 @@ function searchApplicationsByKeyword(appKeyword) {
     });
 }
 
-// return all an integer array that contains all laptops' ids
-function returnAllLaptopsId(){
-    return new Promise((resolve, reject) => {
-        sql = `SELECT * FROM laptop;`;
-
-        db.all(sql, (err, rows) => {
-            if(err) {
-                console.error('returnAllLaptopsId failed!!');
-                console.error(err.message)
-            }
-            else {
-                console.log('returnAllLaptopsId complete!!');
-                const result = rows.map(row => row.id);
-                resolve(result);
-            }
-        });
-    });
-}
 
 function createTablesOfTheLowerPerformance(){
     return new Promise((resolve, reject) => {
@@ -498,30 +480,13 @@ function deleteLaptop(id){
     });
 }
 
-function getGameImage(game_id){
-    return new Promise((resolve, reject) => {
-        sql =   `SELECT * FROM game WHERE game.id = ?;`;
-        db.all(sql, [game_id], (err, rows) => {
-            if(err) {
-                console.error('getGameImage failed!!');
-                console.error(err.message);
-            }
-            else {
-                console.log('getGameImage complete!!');
-                const result = rows.map(row => row.image);
-                console.log(result);
-                resolve(result);
-            }
-        })
-    })
-}
 
 async function createGame(name, cpu_AMD, cpu_Intel, ram, gpu_AMD, gpu_Nvidia, rom, url) {
     try {
         // Insert a new game into the database
         const sql = 'INSERT INTO game(name, cpu_AMD, cpu_Intel, ram, gpu_AMD, gpu_Nvidia, rom) VALUES (?, ?, ?, ?, ?, ?, ?)';
         await new Promise((resolve, reject) => {
-            db.run(sql, [name, cpu_AMD, cpu_Intel, gpu_AMD, gpu_Nvidia], (err) => {
+            db.run(sql, [name, cpu_AMD, cpu_Intel, ram, gpu_AMD, gpu_Nvidia, rom], (err) => {
                 if (err) {
                     console.error('createGame failed!!');
                     console.error(err.message);
@@ -569,6 +534,7 @@ async function updateGameImage(game_name, URL) {
         console.error('Error:', error);
     }
 }
+
 
 
 function getGameIds(keyword) {

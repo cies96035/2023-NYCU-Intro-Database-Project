@@ -41,7 +41,7 @@ app.post('/addApp_submit', async (req, res) => {
     var ram = req.body.ram;
     var rom = req.body.rom;
     var url = req.body.url;
-    console.log(url);
+    console.log(req.body);
 
     try {
         await appFunction.createGame(name, cpu_AMD, cpu_Intel, ram, gpu_AMD, gpu_Nvidia, rom, url);
@@ -75,6 +75,8 @@ app.post('/createLaptopXXX', (req, res) => {
     var interface = req.body.interface;
     var weight = req.body.weight;
     var price = req.body.price;
+    console.log(req.body);
+
 
     appFunction.createLaptop(model, screen, cpu, ram, rom, gpu, interface, weight, price)
     .then(function() {res.json('createLaptop complete!!')});

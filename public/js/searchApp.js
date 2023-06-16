@@ -37,14 +37,16 @@ function updateSelectSet() {
     for (var i = 0; i < checkboxes.length; i++) {
         var checkbox = checkboxes[i];
         var row = checkbox.parentNode.parentNode;
-        var selectIdx = row.querySelector('.gameId').textContent
+        var selectIdx = row.querySelector('.gameId').textContent;
+        console.log(selectIdx);
         if (checkbox.checked) {
             selectData.add(parseInt(selectIdx))
         } else {
             selectData.delete(parseInt(selectIdx))
         }
     }
-
+    console.log("aasd");
+    console.log(selectData);
     var setString = JSON.stringify(Array.from(selectData));
     localStorage.setItem('selectApp', setString);
 }
@@ -148,6 +150,7 @@ function showTableWithDate(Data) {
                 td.appendChild(img);
             }else if(headerKeys[j + 1] == 'gameId'){
                 td.classList.add('hidden');
+                td.textContent = rowData[j];
             }else{
                 td.textContent = rowData[j];
             }

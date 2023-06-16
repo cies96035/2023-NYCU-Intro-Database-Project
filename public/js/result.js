@@ -178,7 +178,11 @@ function getLaptopData() {
     }
     let myConstraints = {};
     myConstraints['appId'] = storedDatas[storedDatasName[0]];
+    console.log('aaa');
+    console.log(myConstraints['appId']);
+    console.log('bbb');
     myConstraints['screen'] = storedDatas[storedDatasName[1]];
+    console.log(myConstraints['screen'])
     myConstraints['price'] = storedDatas[storedDatasName[2]];
     myConstraints['weight'] = storedDatas[storedDatasName[3]];
 
